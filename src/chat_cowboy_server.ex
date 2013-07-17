@@ -18,8 +18,7 @@ defmodule ChatCowboyServer do
     dispatch = :cowboy_router.compile([
       {:_, [
         {'/',  FileHandler, []},
-        {'/_ws', WebSocketHandler, [{:dumb_protocol,   DumbIncrementHandler},
-                                    {:mirror_protocol, MirrorHandler}]}
+        {'/_ws', WebSocketHandler, [{:mirror_protocol, MirrorHandler}]}
       ]}
     ])
     :cowboy.start_http :my_http_listener, 100, [{:port, 8080}], [{:env, [{:dispatch, dispatch}]}]

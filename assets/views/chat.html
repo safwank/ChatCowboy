@@ -6,18 +6,6 @@
 </head>
 
 <body>
-<h3>Detected Browser: <div id=brow>...</div></h3>
-
-<h2>"mirror-protocol" test</h2>
-Use the mouse to draw on the canvas below -- all other browser windows open
-on this page see your drawing in real time and you can see any of theirs as
-well.
-<p>
-The mirror-protocol doesn't interpret what is being sent to it, it just
-re-sends it to every other websocket it has a connection with using that
-protocol, including the guy who sent the packet.
-<br><br>
-
 <table>
 	<tr>
 		<td>Paint color:
@@ -36,7 +24,6 @@ protocol, including the guy who sent the packet.
 </table>
 
 <script>
-
 /* BrowserDetect came from http://www.quirksmode.org/js/detect.html */
 
 var BrowserDetect = {
@@ -156,11 +143,6 @@ var BrowserDetect = {
 
 };
 BrowserDetect.init();
-
-document.getElementById("brow").textContent = " " + BrowserDetect.browser + " "
-	+ BrowserDetect.version +" " + BrowserDetect.OS +" ";
-
-	var pos = 0;
 
 function get_appropriate_ws_url()
 {
