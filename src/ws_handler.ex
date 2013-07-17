@@ -2,7 +2,6 @@ defmodule WebSocketHandler do
   @behaviour :cowboy_http_handler
   @behaviour :cowboy_websocket_handler
 
-
   ## This is the part where we handle our WebSocket protocols
 
   defrecord State, handler: nil, handler_state: nil
