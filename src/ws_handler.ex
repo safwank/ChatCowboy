@@ -12,12 +12,8 @@ defmodule WebSocketHandler do
     proto = List.keyfind headers, "sec-websocket-protocol", 0
     handler =
       case proto do
-        {"sec-websocket-protocol", "dumb-increment-protocol"} ->
-          {_, handler} = List.keyfind opts, :dumb_protocol, 0
-          handler
-
-        {"sec-websocket-protocol", "mirror-protocol"} ->
-          {_, handler} = List.keyfind opts, :mirror_protocol, 0
+        {"sec-websocket-protocol", "chat-protocol"} ->
+          {_, handler} = List.keyfind opts, :chat_protocol, 0
           handler
       end
 

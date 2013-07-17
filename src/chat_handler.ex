@@ -1,19 +1,17 @@
-defmodule MirrorHandler do
+defmodule ChatHandler do
   
   def init(_any, req) do
     subscribe
     {:ok, req, nil}
   end
 
-  # All it does is send the message back to all clients,
-  # including the sender itself
   def stream(msg, req, state) do
     broadcast msg
     {:reply, msg, req, state}
   end
 
   # A callback from gproc to broadcast msg to all clients
-  def info({:mirror_protocol, msg}, req, state) do
+  def info({:chat_protocol, msg}, req, state) do
     {:reply, msg, req, state}
   end
 
@@ -25,15 +23,12 @@ defmodule MirrorHandler do
     :ok
   end
 
-
-  ## Private functions ##
-
   defp subscribe do
-    :gproc.reg {:p, :l, :mirror_protocol}
+    :gproc.reg {:p, :l, :chat_protocol}
   end
 
   defp broadcast(msg) do
-    :gproc.send {:p, :l, :mirror_protocol},
-                {:mirror_protocol, msg}
+    :gproc.send {:p, :l, :chat_protocol},
+                {:chat_protocol, msg}
   end
 end
