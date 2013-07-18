@@ -42,8 +42,8 @@
         }
 
         url = url.split('/');
-
-        return protocol + url[0] + "/_ws";
+        var sessionId = window.location.search.substring(1).split('=')[1];
+        return protocol + url[0] + "/_ws?sessionId=" + sessionId;
       }
 
       var down = 0;

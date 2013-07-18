@@ -1,12 +1,14 @@
 defmodule ChatHandler do
   
   def init(_any, req) do
-    subscribe
+    sessionId = getSessionIdFrom req
+    subscribe sessionId
     {:ok, req, nil}
   end
 
   def stream(msg, req, state) do
-    broadcast msg
+    sessionId = getSessionIdFrom req
+    broadcast sessionId, msg
     {:reply, msg, req, state}
   end
 
@@ -23,12 +25,17 @@ defmodule ChatHandler do
     :ok
   end
 
-  defp subscribe do
-    :gproc.reg {:p, :l, :chat_protocol}
+  defp getSessionIdFrom(req) do
+    {sessionId, _updatedReq} = :cowboy_req.qs_val "sessionId", req
+    sessionId
   end
 
-  defp broadcast(msg) do
-    :gproc.send {:p, :l, :chat_protocol},
+  defp subscribe(sessionId) do
+    :gproc.reg {:p, :l, {sessionId, :chat_protocol}}
+  end
+
+  defp broadcast(sessionId, msg) do
+    :gproc.send {:p, :l, {sessionId, :chat_protocol}},
                 {:chat_protocol, msg}
   end
 end
