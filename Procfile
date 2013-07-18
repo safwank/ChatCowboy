@@ -1,1 +1,1 @@
-elixir --no-halt -pa ebin -pa 'deps/*/ebin' -e "ChatCowboyServer.start"
+web: MIX_ENV=prod mix server -p $PORT
