@@ -2,10 +2,15 @@
 <html lang="en">
   <head>
     <meta charset=utf-8 />
-    <title>Elixir Websocket</title>
+    <title>Chat Cowboy</title>
   </head>
   <body>
     <table>
+      <tr>
+        <td colspan="2">
+          <label>Session ID:</label>
+          <input id="session_id" type="text" value="foo" />
+        </td>
       <tr>
         <td>Paint color:
           <select id="color" onchange="updateColor();">
@@ -42,7 +47,7 @@
         }
 
         url = url.split('/');
-        var sessionId = window.location.search.substring(1).split('=')[1];
+        var sessionId = document.getElementById("session_id").value;
         return protocol + url[0] + "/_ws?sessionId=" + sessionId;
       }
 

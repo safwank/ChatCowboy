@@ -10,8 +10,9 @@ defmodule FileHandler do
   end
 
   def handle(req, state) do
-    {:ok, html_data} = File.read("assets/views/chat.html")
-    {:ok, req} = :cowboy_req.reply 200, [{"Content-Type", "text/html"}], html_data, req
+    {path, _req} = :cowboy_req.path(req)
+    {:ok, content} = File.read("assets" <> path)
+    {:ok, req} = :cowboy_req.reply(200, [{"Content-Type", "text/html"}], content, req)
     {:ok, req, state}
   end
 
