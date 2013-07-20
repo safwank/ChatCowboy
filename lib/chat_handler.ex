@@ -26,7 +26,7 @@ defmodule ChatHandler do
   end
 
   defp get_session_id_from(req) do
-    {session_id, _req} = :cowboy_req.qs_val("session_id", req)
+    {session_id, _req} = :cowboy_req.qs_val("sessionId", req)
     session_id
   end
 
