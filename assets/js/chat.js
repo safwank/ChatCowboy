@@ -39,6 +39,9 @@
             ctx.arc(+(i[2]), +(i[3]), +(i[4]), 0, Math.PI * 2, true);
             ctx.stroke();
           }
+          if (i[0] == 'reset') {
+            initCanvas();
+          }
 
           f++;
         }
@@ -57,6 +60,7 @@
       canvas.width = 480;
       ctx = canvas.getContext("2d");
 
+      $('.drawing').empty();
       $('.drawing').append(canvas);
 
       canvas.addEventListener('mousemove', onMouseMove, false);
@@ -134,6 +138,11 @@
       socket.close();
       initConnection();
       return false;
+    });
+
+    $('#reset').click(function() {
+      initCanvas();
+      socket.send('reset;');
     });
   });
 })();
