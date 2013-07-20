@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset=utf-8 />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chat Cowboy</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet">
   </head>
   <body>
-    <table>
-      <tr>
-        <td colspan="2">
-          <label>Session ID:</label>
-          <input id="session_id" type="text" value="foo" />
-        </td>
-      <tr>
-        <td>Paint color:
-          <select id="color" onchange="updateColor();">
-            <option value=#000000>Black</option>
-            <option value=#0000ff>Blue</option>
-            <option value=#20ff20>Green</option>
-            <option value=#802020>Dark Red</option>
-          </select>
-        </td>
-        <td id="wslm_statustd" align="center">
-          <div id="wslm_status">Not initialized</div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" width="500" align="center" style="background-color: #e0e0e0;">
-          <div id="wslm_drawing"></div>
-        </td>
-      </tr>
-    </table>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Chat Cowboy</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span8">
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="sessionId">Session ID</label>
+              <div class="controls">
+                <input id="sessionId" type="text" value="foo" />
+                <button class="btn btn-primary">Connect</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="sessionId">Paint color</label>
+              <div class="controls">
+                <select id="color">
+                  <option value="#000000">Black</option>
+                  <option value="#0000ff">Blue</option>
+                  <option value="#20ff20">Green</option>
+                  <option value="#802020">Dark Red</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8 offset1">
+          <div class="alert alert-success"></div>
+          <div class="drawing"></div>
+        </div>
+      </div>
+    </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="/js/chat.js"></script>

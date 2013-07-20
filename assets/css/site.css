@@ -1,0 +1,15 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+.drawing {
+	height: 310px;
+	width: 500px; 
+	text-align: center; 
+	background-color: #e0e0e0;
+}
+
+.alert {
+	width: 450px;
+}

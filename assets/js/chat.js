@@ -5,48 +5,48 @@
     var last_x = 0,
         last_y = 0;
     var ctx;
-    var socket = new WebSocket(getSocketUrl(), "chat-protocol");
-    var color = "#000000";
+    var socket = new WebSocket(getSocketUrl(), 'chat-protocol');
+    var color = '#000000';
 
     initConnection();
     initCanvas();
 
     function initConnection() {
-      try {
-        socket.onopen = function() {
-          document.getElementById("wslm_statustd").style.backgroundColor = "#40ff40";
-          document.getElementById("wslm_status").textContent = " websocket connection opened ";
-        }
+      var alert = $('.alert');
 
-        socket.onmessage = function(msg) {
-          j = msg.data.split(';');
-          f = 0;
-          while (f < j.length - 1) {
-            i = j[f].split(' ');
-            if (i[0] == 'd') {
-              ctx.strokeStyle = i[1];
-              ctx.beginPath();
-              ctx.moveTo(+(i[2]), +(i[3]));
-              ctx.lineTo(+(i[4]), +(i[5]));
-              ctx.stroke();
-            }
-            if (i[0] == 'c') {
-              ctx.strokeStyle = i[1];
-              ctx.beginPath();
-              ctx.arc(+(i[2]), +(i[3]), +(i[4]), 0, Math.PI * 2, true);
-              ctx.stroke();
-            }
+      socket.onopen = function() {
+        $(alert).text('Connection established');
+        $(alert).removeClass('alert-error');
+        $(alert).addClass('alert-success');
+      }
 
-            f++;
+      socket.onmessage = function(msg) {
+        j = msg.data.split(';');
+        f = 0;
+        while (f < j.length - 1) {
+          i = j[f].split(' ');
+          if (i[0] == 'd') {
+            ctx.strokeStyle = i[1];
+            ctx.beginPath();
+            ctx.moveTo(+(i[2]), +(i[3]));
+            ctx.lineTo(+(i[4]), +(i[5]));
+            ctx.stroke();
           }
-        }
+          if (i[0] == 'c') {
+            ctx.strokeStyle = i[1];
+            ctx.beginPath();
+            ctx.arc(+(i[2]), +(i[3]), +(i[4]), 0, Math.PI * 2, true);
+            ctx.stroke();
+          }
 
-        socket.onclose = function() {
-          document.getElementById("wslm_statustd").style.backgroundColor = "#ff4040";
-          document.getElementById("wslm_status").textContent = " websocket connection CLOSED ";
+          f++;
         }
-      } catch (exception) {
-        alert('<p>Error' + exception);
+      }
+
+      socket.onclose = function() {
+        $(alert).text('Connection closed');
+        $(alert).removeClass('alert-success');
+        $(alert).addClass('alert-error');
       }
     }
 
@@ -56,7 +56,7 @@
       canvas.width = 480;
       ctx = canvas.getContext("2d");
 
-      document.getElementById('wslm_drawing').appendChild(canvas);
+      $('.drawing').append(canvas);
 
       canvas.addEventListener('mousemove', onMouseMove, false);
       canvas.addEventListener('mousedown', onMouseDown, false);
@@ -87,12 +87,8 @@
       }
 
       url = url.split('/');
-      var sessionId = document.getElementById("session_id").value;
-      return protocol + url[0] + "/_ws?sessionId=" + sessionId;
-    }
-
-    function updateColor() {
-      color = document.getElementById("color").value;
+      var sessionId = $('#sessionId').val();
+      return protocol + url[0] + '/_ws?sessionId=' + sessionId;
     }
 
     function onMouseDown(ev) {
@@ -128,5 +124,9 @@
       last_x = x;
       last_y = y;
     }
+
+    $('#color').change(function () {
+      color = $(this).val();
+    });
   });
 })();
