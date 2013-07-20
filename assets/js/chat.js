@@ -5,13 +5,14 @@
     var last_x = 0,
         last_y = 0;
     var ctx;
-    var socket = new WebSocket(getSocketUrl(), 'chat-protocol');
+    var socket;
     var color = '#000000';
 
     initConnection();
     initCanvas();
 
     function initConnection() {
+      socket = new WebSocket(getSocketUrl(), 'chat-protocol')
       var alert = $('.alert');
 
       socket.onopen = function() {
@@ -125,8 +126,14 @@
       last_y = y;
     }
 
-    $('#color').change(function () {
+    $('#color').change(function() {
       color = $(this).val();
+    });
+
+    $('#connect').click(function() {
+      socket.close();
+      initConnection();
+      return false;
     });
   });
 })();
