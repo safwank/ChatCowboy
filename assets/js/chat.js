@@ -10,6 +10,7 @@
 
     initConnection();
     initCanvas();
+    $('.dropdown-toggle').dropdown();
 
     function initConnection() {
       socket = new WebSocket(getSocketUrl(), 'chat-protocol')
@@ -129,14 +130,13 @@
       last_y = y;
     }
 
-    $('#color').change(function() {
-      color = $(this).val();
+    $('#color a').click(function() {
+      color = $(this).data('value');
     });
 
     $('#connect').click(function() {
       socket.close();
       initConnection();
-      return false;
     });
 
     $('#reset').click(function() {
