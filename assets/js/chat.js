@@ -13,12 +13,12 @@
 
     function initConnection() {
       socket = new WebSocket(getSocketUrl(), 'chat-protocol')
-      var alert = $('.alert');
+      var successBadge = $('.badge-success');
+      var errorBadge = $('.badge-important');
 
       socket.onopen = function() {
-        $(alert).text('Connection established');
-        $(alert).removeClass('alert-error');
-        $(alert).addClass('alert-success');
+        $(successBadge).removeClass('hidden');
+        $(errorBadge).addClass('hidden');
       }
 
       socket.onmessage = function(msg) {
@@ -48,9 +48,8 @@
       }
 
       socket.onclose = function() {
-        $(alert).text('Connection closed');
-        $(alert).removeClass('alert-success');
-        $(alert).addClass('alert-error');
+        $(successBadge).addClass('hidden');
+        $(errorBadge).removeClass('hidden');
       }
     }
 
